@@ -11,7 +11,7 @@ export const boxes = possibleCoords.map((coord0, i) => {
       return (
         <Box
           key={i * 9 + j * 3 + k}
-          name={"box-" + (i * 9 + j * 3 + k)}
+          box_id={i * 9 + j * 3 + k}
           position={[coord0, coord1, coord2]}
         />
       );
@@ -37,14 +37,19 @@ export function Box(props: any) {
       ref={ref}
       receiveShadow
       castShadow
-      onClick={(e) => (e.stopPropagation(), setClicked(!clicked))}
+      onClick={(e) => {
+        e.stopPropagation();
+        setClicked(!clicked);
+        console.log(props.box_id);
+      }}
       onPointerOver={(e) => (e.stopPropagation(), setHovered(true))}
       onPointerOut={(e) => setHovered(false)}
     >
       <boxGeometry args={[1, 1, 1]} />
       <meshStandardMaterial
         roughness={1}
-        color={clicked ? "hotpink" : hovered ? "aquamarine" : "white"}
+        color={clicked ? "hotpink" : hovered ? "aquamarine" : "lightgreen"}
+        wireframe={props.box_id === 26}
       />
     </mesh>
   );
