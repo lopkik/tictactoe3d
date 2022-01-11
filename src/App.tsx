@@ -2,6 +2,7 @@ import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { boxes } from "./components/Box";
 
+// just a comment
 function App() {
   return (
     <div className='App'>
