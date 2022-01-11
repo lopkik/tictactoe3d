@@ -2,6 +2,7 @@ import { useCursor } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
+import { useGameStore } from "../store";
 
 const possibleCoords = [-1.2, 0, 1.2];
 
@@ -21,6 +22,8 @@ export const boxes = possibleCoords.map((coord0, i) => {
 
 export function Box(props: any) {
   const ref = useRef<THREE.Mesh>(null!);
+  const gameState = useGameStore((state) => state.gameState);
+  const updateGameState = useGameStore((state) => state.updateGameState);
   const [hovered, setHovered] = useState(false);
   const [clicked, setClicked] = useState(false);
 
@@ -40,7 +43,8 @@ export function Box(props: any) {
       onClick={(e) => {
         e.stopPropagation();
         setClicked(!clicked);
-        console.log(props.box_id);
+        updateGameState(props.box_id, 1);
+        console.log(props.box_id, gameState);
       }}
       onPointerOver={(e) => (e.stopPropagation(), setHovered(true))}
       onPointerOut={(e) => setHovered(false)}
