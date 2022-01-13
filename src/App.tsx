@@ -4,8 +4,8 @@ import { Box } from "./components/Box";
 import { useGameStore } from "./store";
 
 const possibleCoords = [-1.2, 0, 1.2];
+const dummyVal = true;
 
-// just a comment
 function App() {
   const gameState = useGameStore((state) => state.gameState);
 
