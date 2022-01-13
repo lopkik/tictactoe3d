@@ -10,8 +10,18 @@ body,
 
 body {
   overscroll-behavior-y: none;
+  background-color: lightcoral;
 }
 
 .App {
   height: inherit;
 }
+
+.testDiv {
+  position: relative;
+  z-index: 1000;
+}
+
+/* Canvas {
+  height: 90%;
+} */
