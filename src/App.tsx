@@ -3,9 +3,7 @@ import { Canvas } from "@react-three/fiber";
 import { Box } from "./components/Box";
 import { useGameStore } from "./store/gameStore";
 
-const possibleCoords = [-1.2, 0, 1.2];
 const posCoords = [0, 1, 2];
-const dummyVal = true;
 
 function App() {
   const gameStore = useGameStore();
@@ -18,14 +16,15 @@ function App() {
           get gameState
         </button>
       </div>
+      <div>Player {gameStore.currentPlayerId}'s turn</div>
 
       <Canvas dpr={1.5} camera={{ position: [5, 5, -5] }}>
         <OrbitControls />
         <ambientLight />
         <pointLight position={[10, 10, 10]} />
-        {posCoords.map((x, i) => {
-          return posCoords.map((y, i) => {
-            return posCoords.map((z, i) => {
+        {posCoords.map((x) => {
+          return posCoords.map((y) => {
+            return posCoords.map((z) => {
               return (
                 <Box
                   position={[x - 1, y - 1, z - 1]}
@@ -35,18 +34,6 @@ function App() {
             });
           });
         })}
-        {/* {gameStore.gameState.map((array2D, x) => {
-          return gameStore.gameState[x].map((array1D, y) => {
-            return gameStore.gameState[x][y].map((gameStateValue, z) => {
-              return (
-                <Box
-                  position={[x - 1, y - 1, z - 1]}
-                  playerId={gameStateValue}
-                />
-              );
-            });
-          });
-        })} */}
       </Canvas>
     </div>
   );

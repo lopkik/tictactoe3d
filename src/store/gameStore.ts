@@ -33,6 +33,8 @@ const updateBoxGameState = (
   boxPosition: Vector3,
   playerId: playerId
 ) => {
+  // have to add 1 to each axis to get the actual index from the position
+  //  ex: [-1][1][0] => [0][2][1]
   gameState[boxPosition.x + 1][boxPosition.y + 1][boxPosition.z + 1] = playerId;
   return gameState;
 };
@@ -52,7 +54,7 @@ export const useGameStore = create<GameStore>((set) => ({
     }));
   },
   resetGameState: (): void => {
-    set((state) => ({
+    set(() => ({
       gameState: generateFreshGameState(),
       currentPlayerId: 1,
     }));

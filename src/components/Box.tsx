@@ -1,22 +1,16 @@
 import { useCursor } from "@react-three/drei";
 import { MeshProps, useFrame } from "@react-three/fiber";
-import { useEffect, useRef, useState } from "react";
-import * as THREE from "three";
+import { useRef, useState } from "react";
 import { useGameStore } from "../store/gameStore";
 
 interface BoxProps extends MeshProps {
-  // box_id: number;
-  // boxState: number;
   playerId: playerId;
 }
 
 export function Box(props: BoxProps) {
   const ref = useRef<THREE.Mesh>(null!);
   const gameStore = useGameStore();
-  const currentPlayer = useGameStore((state) => state.currentPlayerId);
-  const updateGameState = useGameStore((state) => state.updateBoxGameState);
   const [hovered, setHovered] = useState(false);
-  const [clicked, setClicked] = useState(false);
 
   useFrame((state) =>
     ref.current.scale.setScalar(
@@ -44,20 +38,17 @@ export function Box(props: BoxProps) {
       castShadow
       onClick={(e) => {
         e.stopPropagation();
-        // setClicked(!clicked);
+        // if this box's playerId is not 0, return because a player
+        // has already selected this box
+        if (props.playerId) return;
         gameStore.updateBoxGameState(ref.current.position);
-        console.log("position:", ref.current.position);
+        // TODO: check if the game is won
       }}
       onPointerOver={(e) => (e.stopPropagation(), setHovered(true))}
-      onPointerOut={(e) => setHovered(false)}
+      onPointerOut={(_) => setHovered(false)}
     >
       <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial
-        roughness={1}
-        // color={clicked ? "hotpink" : hovered ? "aquamarine" : "lightgreen"}
-        color={getBoxColor()}
-        // wireframe={props.box_id === 26}
-      />
+      <meshStandardMaterial roughness={1} color={getBoxColor()} />
     </mesh>
   );
 }
