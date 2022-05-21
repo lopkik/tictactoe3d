@@ -41,8 +41,10 @@ export function Box(props: BoxProps) {
         // if this box's playerId is not 0, return because a player
         // has already selected this box
         if (props.playerId) return;
-        gameStore.updateBoxGameState(ref.current.position);
+        const gameWon = gameStore.updateBoxGameState(ref.current.position);
         // TODO: check if the game is won
+        console.log(gameWon);
+        console.log(gameStore.gameState);
       }}
       onPointerOver={(e) => (e.stopPropagation(), setHovered(true))}
       onPointerOut={(_) => setHovered(false)}

@@ -5,4 +5,6 @@ declare global {
   // 1: player 1
   // 2: player 2
   export type playerId = 0 | 1 | 2;
+
+  export type gameState = playerId[][][];
 }
